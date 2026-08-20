@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect";
+import { useEffect, useRef } from "react"
+import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect"
 
 /**
  * A custom hook that sets up an timeout to call a callback function at specified intervals.
@@ -8,21 +8,21 @@ import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect";
  */
 
 export function useTimeout(callback: () => void, delay: number | null): void {
-  const savedCallback = useRef(callback);
+  const savedCallback = useRef(callback)
 
   // Remember the latest callback if it changes.
   useIsomorphicLayoutEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
+    savedCallback.current = callback
+  }, [callback])
 
   useEffect(() => {
     if (delay === null || delay < 0) {
-      return;
+      return
     }
 
-    const tick = () => savedCallback.current();
-    const id = setTimeout(tick, delay);
+    const tick = () => savedCallback.current()
+    const id = setTimeout(tick, delay)
 
-    return () => clearTimeout(id);
-  }, [delay]);
+    return () => clearTimeout(id)
+  }, [delay])
 }

@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/lib/truncate-text.ts",
-      "content": "/**\n * Truncate text to a maximum length with ellipsis.\n * @param text - The text to truncate.\n * @param maxLength - Maximum length before truncation.\n * @returns The truncated text with ellipsis if needed.\n */\n\nexport function truncateText(text: string, maxLength: number): string {\n  return text.length > maxLength ? `${text.slice(0, maxLength)}…` : text;\n}\n",
+      "content": "/**\n * Truncate text to a maximum length with ellipsis.\n * @param text - The text to truncate.\n * @param maxLength - Maximum length before truncation.\n * @returns The truncated text with ellipsis if needed.\n */\n\nexport function truncateText(text: string, maxLength: number): string {\n  return text.length > maxLength ? `${text.slice(0, maxLength)}…` : text\n}\n",
       "type": "registry:lib"
     }
   ],

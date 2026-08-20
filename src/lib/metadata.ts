@@ -1,4 +1,4 @@
-import type { Metadata } from "next/types";
+import type { Metadata } from "next/types"
 
 export function createMetadata(override: Metadata): Metadata {
   return {
@@ -22,10 +22,10 @@ export function createMetadata(override: Metadata): Metadata {
     alternates: {
       ...override.alternates,
     },
-  };
+  }
 }
 
 export const baseUrl =
   process.env.NODE_ENV === "development"
     ? new URL("http://localhost:3000")
-    : new URL("https://reactusekit.vercel.app");
+    : new URL("https://reactusekit.vercel.app")

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react"
 
 /**
  * A custom hook that manages state synchronized with localStorage.
@@ -19,13 +19,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export interface UseLocalStorageOptions<T> {
   /** Custom serializer function */
   serializer?: {
-    read: (value: string) => T;
-    write: (value: T) => string;
-  };
+    read: (value: string) => T
+    write: (value: T) => string
+  }
   /** Function to determine if the value should be synced across tabs */
-  syncData?: boolean;
+  syncData?: boolean
   /** Custom event name for cross-tab synchronization */
-  initializeWithValue?: boolean;
+  initializeWithValue?: boolean
 }
 
 /**
@@ -35,35 +35,35 @@ export type UseLocalStorageReturn<T> = [
   T,
   (value: T | ((val: T) => T)) => void,
   () => void,
-];
+]
 
 // Custom hook to create a stable event callback
 function useEventCallback<Args extends unknown[], Return>(
-  fn: (...args: Args) => Return,
+  fn: (...args: Args) => Return
 ): (...args: Args) => Return {
-  const ref = useRef<typeof fn>(fn);
+  const ref = useRef<typeof fn>(fn)
 
   useEffect(() => {
-    ref.current = fn;
-  });
+    ref.current = fn
+  })
 
   return useCallback((...args: Args) => {
-    return ref.current?.(...args);
-  }, []);
+    return ref.current?.(...args)
+  }, [])
 }
 
 // Custom hook to listen for localStorage events
 function useLocalStorageEventListener(callback: (e: StorageEvent) => void) {
-  const eventCallback = useEventCallback(callback);
+  const eventCallback = useEventCallback(callback)
 
   useEffect(() => {
     if (typeof window === "undefined") {
-      return;
+      return
     }
 
-    window.addEventListener("storage", eventCallback);
-    return () => window.removeEventListener("storage", eventCallback);
-  }, [eventCallback]);
+    window.addEventListener("storage", eventCallback)
+    return () => window.removeEventListener("storage", eventCallback)
+  }, [eventCallback])
 }
 
 /**
@@ -72,13 +72,13 @@ function useLocalStorageEventListener(callback: (e: StorageEvent) => void) {
 const defaultSerializer = {
   read: (value: string) => {
     try {
-      return JSON.parse(value);
+      return JSON.parse(value)
     } catch {
-      return value;
+      return value
     }
   },
   write: (value: unknown) => JSON.stringify(value),
-};
+}
 
 /**
  * Read a value from localStorage
@@ -86,18 +86,18 @@ const defaultSerializer = {
 function readLocalStorageValue<T>(
   key: string,
   initialValue: T,
-  serializer: { read: (value: string) => T; write: (value: T) => string },
+  serializer: { read: (value: string) => T; write: (value: T) => string }
 ): T {
   if (typeof window === "undefined") {
-    return initialValue;
+    return initialValue
   }
 
   try {
-    const item = window.localStorage.getItem(key);
-    return item !== null ? serializer.read(item) : initialValue;
+    const item = window.localStorage.getItem(key)
+    return item !== null ? serializer.read(item) : initialValue
   } catch (error) {
-    console.warn(`Error reading localStorage key "${key}":`, error);
-    return initialValue;
+    console.warn(`Error reading localStorage key "${key}":`, error)
+    return initialValue
   }
 }
 
@@ -107,59 +107,59 @@ function readLocalStorageValue<T>(
 function writeLocalStorageValue<T>(
   key: string,
   value: T,
-  serializer: { read: (value: string) => T; write: (value: T) => string },
+  serializer: { read: (value: string) => T; write: (value: T) => string }
 ): void {
   if (typeof window === "undefined") {
-    return;
+    return
   }
 
   try {
-    window.localStorage.setItem(key, serializer.write(value));
+    window.localStorage.setItem(key, serializer.write(value))
   } catch (error) {
-    console.warn(`Error setting localStorage key "${key}":`, error);
+    console.warn(`Error setting localStorage key "${key}":`, error)
   }
 }
 
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  options: UseLocalStorageOptions<T> = {},
+  options: UseLocalStorageOptions<T> = {}
 ): UseLocalStorageReturn<T> {
   const {
     serializer = defaultSerializer as {
-      read: (value: string) => T;
-      write: (value: T) => string;
+      read: (value: string) => T
+      write: (value: T) => string
     },
     syncData = true,
     initializeWithValue = true,
-  } = options;
+  } = options
 
   // Get the initial value from localStorage or use the provided initial value
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (!initializeWithValue) {
-      return initialValue;
+      return initialValue
     }
-    return readLocalStorageValue(key, initialValue, serializer);
-  });
+    return readLocalStorageValue(key, initialValue, serializer)
+  })
 
   // Return a wrapped version of useState's setter function that persists the new value to localStorage
   const setValue = useEventCallback((value: T | ((val: T) => T)) => {
     if (typeof window === "undefined") {
       console.warn(
-        `Tried setting localStorage key "${key}" even though environment is not a client`,
-      );
-      return;
+        `Tried setting localStorage key "${key}" even though environment is not a client`
+      )
+      return
     }
 
     try {
       // Allow value to be a function so we have the same API as useState
-      const newValue = value instanceof Function ? value(storedValue) : value;
+      const newValue = value instanceof Function ? value(storedValue) : value
 
       // Save to localStorage
-      writeLocalStorageValue(key, newValue, serializer);
+      writeLocalStorageValue(key, newValue, serializer)
 
       // Save state
-      setStoredValue(newValue);
+      setStoredValue(newValue)
 
       // Dispatch a custom event to notify other useLocalStorage hooks
       if (syncData) {
@@ -169,26 +169,26 @@ export function useLocalStorage<T>(
               key,
               newValue,
             },
-          }),
-        );
+          })
+        )
       }
     } catch (error) {
-      console.warn(`Error setting localStorage key "${key}":`, error);
+      console.warn(`Error setting localStorage key "${key}":`, error)
     }
-  });
+  })
 
   // Function to remove the value from localStorage
   const removeValue = useEventCallback(() => {
     if (typeof window === "undefined") {
       console.warn(
-        `Tried removing localStorage key "${key}" even though environment is not a client`,
-      );
-      return;
+        `Tried removing localStorage key "${key}" even though environment is not a client`
+      )
+      return
     }
 
     try {
-      window.localStorage.removeItem(key);
-      setStoredValue(initialValue);
+      window.localStorage.removeItem(key)
+      setStoredValue(initialValue)
 
       // Dispatch a custom event to notify other useLocalStorage hooks
       if (syncData) {
@@ -198,13 +198,13 @@ export function useLocalStorage<T>(
               key,
               newValue: initialValue,
             },
-          }),
-        );
+          })
+        )
       }
     } catch (error) {
-      console.warn(`Error removing localStorage key "${key}":`, error);
+      console.warn(`Error removing localStorage key "${key}":`, error)
     }
-  });
+  })
 
   // Listen for changes to localStorage from other tabs/windows
   useLocalStorageEventListener(
@@ -212,37 +212,34 @@ export function useLocalStorage<T>(
       if (e.key === key && e.newValue !== e.oldValue && syncData) {
         try {
           if (e.newValue === null) {
-            setStoredValue(initialValue);
+            setStoredValue(initialValue)
           } else {
-            setStoredValue(serializer.read(e.newValue));
+            setStoredValue(serializer.read(e.newValue))
           }
         } catch (error) {
-          console.warn(`Error parsing localStorage key "${key}":`, error);
+          console.warn(`Error parsing localStorage key "${key}":`, error)
         }
       }
-    }),
-  );
+    })
+  )
 
   // Listen for custom local-storage events (for same-tab synchronization)
   useEffect(() => {
-    if (!syncData) return;
+    if (!syncData) return
 
     const handleCustomEvent = (e: CustomEvent) => {
       if (e.detail?.key === key && e.detail?.newValue !== undefined) {
-        setStoredValue(e.detail.newValue);
+        setStoredValue(e.detail.newValue)
       }
-    };
+    }
 
-    window.addEventListener(
-      "local-storage",
-      handleCustomEvent as EventListener,
-    );
+    window.addEventListener("local-storage", handleCustomEvent as EventListener)
     return () =>
       window.removeEventListener(
         "local-storage",
-        handleCustomEvent as EventListener,
-      );
-  }, [key, syncData]);
+        handleCustomEvent as EventListener
+      )
+  }, [key, syncData])
 
-  return [storedValue, setValue, removeValue];
+  return [storedValue, setValue, removeValue]
 }

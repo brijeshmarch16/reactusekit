@@ -1,13 +1,13 @@
-import { Analytics } from "@vercel/analytics/react";
-import { RootProvider } from "fumadocs-ui/provider/next";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { baseUrl, createMetadata } from "@/lib/metadata";
-import "./global.css";
+import { Analytics } from "@vercel/analytics/react"
+import { RootProvider } from "fumadocs-ui/provider/next"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import { baseUrl, createMetadata } from "@/lib/metadata"
+import "./global.css"
 
 const inter = Inter({
   subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = createMetadata({
   title: {
@@ -23,7 +23,7 @@ export const metadata: Metadata = createMetadata({
   verification: {
     google: "ECDucOQdERyOKZRKFJg2lfebeUMOyRJ_7AajhOTGvgo",
   },
-});
+})
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
@@ -33,5 +33,5 @@ export default function Layout({ children }: LayoutProps<"/">) {
         <Analytics />
       </body>
     </html>
-  );
+  )
 }

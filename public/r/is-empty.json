@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/lib/is-empty.ts",
-      "content": "/**\n * Check if a value is empty (null, undefined, empty string, array, or object).\n * @param value - The value to check.\n * @returns True if the value is empty, false otherwise.\n */\n\nexport function isEmpty(value: unknown): boolean {\n  // null or undefined\n  if (value == null) {\n    return true;\n  }\n\n  // String (including whitespace-only strings)\n  if (typeof value === \"string\") {\n    return value.trim().length === 0;\n  }\n\n  // Array\n  if (Array.isArray(value)) {\n    return value.length === 0;\n  }\n\n  // Object (plain objects only)\n  if (typeof value === \"object\" && value.constructor === Object) {\n    return Object.keys(value).length === 0;\n  }\n\n  // For other types (numbers, booleans, functions, etc.), consider them not empty\n  return false;\n}\n",
+      "content": "/**\n * Check if a value is empty (null, undefined, empty string, array, or object).\n * @param value - The value to check.\n * @returns True if the value is empty, false otherwise.\n */\n\nexport function isEmpty(value: unknown): boolean {\n  // null or undefined\n  if (value == null) {\n    return true\n  }\n\n  // String (including whitespace-only strings)\n  if (typeof value === \"string\") {\n    return value.trim().length === 0\n  }\n\n  // Array\n  if (Array.isArray(value)) {\n    return value.length === 0\n  }\n\n  // Object (plain objects only)\n  if (typeof value === \"object\" && value.constructor === Object) {\n    return Object.keys(value).length === 0\n  }\n\n  // For other types (numbers, booleans, functions, etc.), consider them not empty\n  return false\n}\n",
       "type": "registry:lib"
     }
   ],

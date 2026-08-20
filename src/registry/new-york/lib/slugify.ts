@@ -11,41 +11,41 @@
 export function slugify(
   text: string,
   options: {
-    separator?: string;
-    lowercase?: boolean;
-    strict?: boolean;
-  } = {},
+    separator?: string
+    lowercase?: boolean
+    strict?: boolean
+  } = {}
 ): string {
-  const { separator = "-", lowercase = true, strict = false } = options;
+  const { separator = "-", lowercase = true, strict = false } = options
 
   if (!text || typeof text !== "string") {
-    return "";
+    return ""
   }
 
-  let slug = text.toString();
+  let slug = text.toString()
 
   // Convert to lowercase if specified
   if (lowercase) {
-    slug = slug.toLowerCase();
+    slug = slug.toLowerCase()
   }
 
   // Replace accented characters with their base equivalents
-  slug = slug.normalize("NFD").replace(/\p{M}/gu, "");
+  slug = slug.normalize("NFD").replace(/\p{M}/gu, "")
 
   if (strict) {
     // Strict mode: only keep alphanumeric characters and separators
-    slug = slug.replace(/[^a-zA-Z0-9]/g, separator);
+    slug = slug.replace(/[^a-zA-Z0-9]/g, separator)
   } else {
     // Standard mode: replace spaces and special characters
     slug = slug
       .replace(/[^\w\s-]/g, "") // Remove special characters except word chars, spaces, and hyphens
-      .replace(/[\s_-]+/g, separator); // Replace spaces, underscores, and multiple hyphens with separator
+      .replace(/[\s_-]+/g, separator) // Replace spaces, underscores, and multiple hyphens with separator
   }
 
   // Remove leading/trailing separators and collapse multiple separators
   slug = slug
     .replace(new RegExp(`^${separator}+|${separator}+$`, "g"), "") // Remove leading/trailing separators
-    .replace(new RegExp(`${separator}+`, "g"), separator); // Collapse multiple separators
+    .replace(new RegExp(`${separator}+`, "g"), separator) // Collapse multiple separators
 
-  return slug;
+  return slug
 }

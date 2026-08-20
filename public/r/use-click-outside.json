@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/hooks/use-click-outside.ts",
-      "content": "import { useEffect, useRef } from \"react\";\n\n/**\n * Custom hook to detect clicks outside the element.\n * @param callback - Function to call when a click outside the element is detected.\n * @returns A ref to attach to the element you want to monitor for outside clicks.\n */\n\nexport function useClickOutside<T extends HTMLElement>(callback: () => void) {\n  const ref = useRef<T>(null);\n\n  useEffect(() => {\n    function handleClick(e: MouseEvent) {\n      if (ref.current && !ref.current.contains(e.target as Node)) {\n        callback();\n      }\n    }\n    document.addEventListener(\"mousedown\", handleClick);\n    return () => document.removeEventListener(\"mousedown\", handleClick);\n  }, [callback]);\n\n  return ref;\n}\n",
+      "content": "import { useEffect, useRef } from \"react\"\n\n/**\n * Custom hook to detect clicks outside the element.\n * @param callback - Function to call when a click outside the element is detected.\n * @returns A ref to attach to the element you want to monitor for outside clicks.\n */\n\nexport function useClickOutside<T extends HTMLElement>(callback: () => void) {\n  const ref = useRef<T>(null)\n\n  useEffect(() => {\n    function handleClick(e: MouseEvent) {\n      if (ref.current && !ref.current.contains(e.target as Node)) {\n        callback()\n      }\n    }\n    document.addEventListener(\"mousedown\", handleClick)\n    return () => document.removeEventListener(\"mousedown\", handleClick)\n  }, [callback])\n\n  return ref\n}\n",
       "type": "registry:hook"
     }
   ],

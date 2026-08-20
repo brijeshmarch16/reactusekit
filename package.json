@@ -8,10 +8,11 @@
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "registry:build": "shadcn build",
-    "lint": "biome check",
-    "lint:fix": "biome check --write",
-    "format": "biome format",
-    "format:fix": "biome format --write"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -29,14 +30,18 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.9",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.1",
     "postcss": "^8.5.26",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2"
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
   }
 }

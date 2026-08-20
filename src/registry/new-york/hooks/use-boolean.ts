@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from "react"
 
 /**
  * A custom hook that manages a boolean state.
@@ -7,21 +7,21 @@ import { useCallback, useState } from "react";
 
 export function useBoolean(defaultValue = false) {
   if (typeof defaultValue !== "boolean") {
-    throw new Error("defaultValue must be `true` or `false`");
+    throw new Error("defaultValue must be `true` or `false`")
   }
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue)
 
   const setTrue = useCallback(() => {
-    setValue(true);
-  }, []);
+    setValue(true)
+  }, [])
 
   const setFalse = useCallback(() => {
-    setValue(false);
-  }, []);
+    setValue(false)
+  }, [])
 
   const toggle = useCallback(() => {
-    setValue((x) => !x);
-  }, []);
+    setValue((x) => !x)
+  }, [])
 
-  return { value, setValue, setTrue, setFalse, toggle };
+  return { value, setValue, setTrue, setFalse, toggle }
 }

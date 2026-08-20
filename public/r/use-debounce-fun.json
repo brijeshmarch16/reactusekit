@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/hooks/use-debounce-fun.ts",
-      "content": "import { useCallback, useRef } from \"react\";\n\n/**\n * A custom hook that debounces a function.\n * @param func The function to debounce.\n * @param delay The debounce delay in milliseconds.\n * @returns A debounced version of the function.\n */\n\nexport function useDebounceFun<T extends (...args: unknown[]) => void>(\n  func: T,\n  delay: number,\n): T {\n  const timerRef = useRef<NodeJS.Timeout | null>(null);\n\n  const debouncedFunc = useCallback(\n    (...args: Parameters<T>) => {\n      if (timerRef.current) {\n        clearTimeout(timerRef.current);\n      }\n      timerRef.current = setTimeout(() => {\n        func(...args);\n      }, delay);\n    },\n    [func, delay],\n  );\n\n  return debouncedFunc as T;\n}\n",
+      "content": "import { useCallback, useRef } from \"react\"\n\n/**\n * A custom hook that debounces a function.\n * @param func The function to debounce.\n * @param delay The debounce delay in milliseconds.\n * @returns A debounced version of the function.\n */\n\nexport function useDebounceFun<T extends (...args: unknown[]) => void>(\n  func: T,\n  delay: number\n): T {\n  const timerRef = useRef<NodeJS.Timeout | null>(null)\n\n  const debouncedFunc = useCallback(\n    (...args: Parameters<T>) => {\n      if (timerRef.current) {\n        clearTimeout(timerRef.current)\n      }\n      timerRef.current = setTimeout(() => {\n        func(...args)\n      }, delay)\n    },\n    [func, delay]\n  )\n\n  return debouncedFunc as T\n}\n",
       "type": "registry:hook"
     }
   ],

@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/hooks/use-isomorphic-layout-effect.ts",
-      "content": "import { useEffect, useLayoutEffect } from \"react\";\n\n/**\n * A custom hook that provides a cross-platform compatible `useLayoutEffect`.\n * It uses `useEffect` on the server and `useLayoutEffect` on the client.\n * @param {Function} effect - The effect function to run.\n * @param {Array} deps - The dependencies array for the effect.\n * @returns {void}\n */\n\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect;\n",
+      "content": "import { useEffect, useLayoutEffect } from \"react\"\n\n/**\n * A custom hook that provides a cross-platform compatible `useLayoutEffect`.\n * It uses `useEffect` on the server and `useLayoutEffect` on the client.\n * @param {Function} effect - The effect function to run.\n * @param {Array} deps - The dependencies array for the effect.\n * @returns {void}\n */\n\nexport const useIsomorphicLayoutEffect =\n  typeof window !== \"undefined\" ? useLayoutEffect : useEffect\n",
       "type": "registry:hook"
     }
   ],

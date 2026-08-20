@@ -10,28 +10,28 @@
 export function isValidURL(
   url: string,
   options: {
-    allowRelative?: boolean;
-    protocols?: string[];
-  } = {},
+    allowRelative?: boolean
+    protocols?: string[]
+  } = {}
 ): boolean {
-  const { allowRelative = false, protocols = ["http", "https"] } = options;
+  const { allowRelative = false, protocols = ["http", "https"] } = options
 
   if (!url || typeof url !== "string") {
-    return false;
+    return false
   }
 
   // Handle relative URLs
   if (allowRelative && url.startsWith("/")) {
-    return true;
+    return true
   }
 
   try {
-    const urlObj = new URL(url);
+    const urlObj = new URL(url)
 
     // Check if protocol is allowed
-    const protocol = urlObj.protocol.slice(0, -1); // Remove trailing ':'
-    return protocols.includes(protocol);
+    const protocol = urlObj.protocol.slice(0, -1) // Remove trailing ':'
+    return protocols.includes(protocol)
   } catch {
-    return false;
+    return false
   }
 }

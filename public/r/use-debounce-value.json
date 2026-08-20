@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/hooks/use-debounce-value.ts",
-      "content": "import { useEffect, useState } from \"react\";\n\n/**\n * A custom hook that debounces a value.\n * @param value The value to debounce.\n * @param delay The debounce delay in milliseconds.\n * @returns The debounced value.\n */\n\nexport function useDebounceValue<T>(value: T, delay: number): T {\n  const [debouncedValue, setDebouncedValue] = useState(value);\n\n  useEffect(() => {\n    const handler = setTimeout(() => {\n      setDebouncedValue(value);\n    }, delay);\n\n    return () => {\n      clearTimeout(handler);\n    };\n  }, [value, delay]);\n\n  return debouncedValue;\n}\n",
+      "content": "import { useEffect, useState } from \"react\"\n\n/**\n * A custom hook that debounces a value.\n * @param value The value to debounce.\n * @param delay The debounce delay in milliseconds.\n * @returns The debounced value.\n */\n\nexport function useDebounceValue<T>(value: T, delay: number): T {\n  const [debouncedValue, setDebouncedValue] = useState(value)\n\n  useEffect(() => {\n    const handler = setTimeout(() => {\n      setDebouncedValue(value)\n    }, delay)\n\n    return () => {\n      clearTimeout(handler)\n    }\n  }, [value, delay])\n\n  return debouncedValue\n}\n",
       "type": "registry:hook"
     }
   ],

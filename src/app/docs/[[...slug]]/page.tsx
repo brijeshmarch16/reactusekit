@@ -1,22 +1,22 @@
-import { createRelativeLink } from "fumadocs-ui/mdx";
+import { createRelativeLink } from "fumadocs-ui/mdx"
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
-} from "fumadocs-ui/page";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { createMetadata } from "@/lib/metadata";
-import { source } from "@/lib/source";
-import { getMDXComponents } from "@/mdx-components";
+} from "fumadocs-ui/page"
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { createMetadata } from "@/lib/metadata"
+import { source } from "@/lib/source"
+import { getMDXComponents } from "@/mdx-components"
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
-  if (!page) notFound();
+  const params = await props.params
+  const page = source.getPage(params.slug)
+  if (!page) notFound()
 
-  const MDXContent = page.data.body;
+  const MDXContent = page.data.body
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
@@ -31,21 +31,21 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
         />
       </DocsBody>
     </DocsPage>
-  );
+  )
 }
 
 export async function generateStaticParams() {
-  return source.generateParams();
+  return source.generateParams()
 }
 
 export async function generateMetadata(props: {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ slug: string[] }>
 }): Promise<Metadata> {
-  const { slug = [] } = await props.params;
-  const page = source.getPage(slug);
-  if (!page) notFound();
+  const { slug = [] } = await props.params
+  const page = source.getPage(slug)
+  if (!page) notFound()
 
-  const description = page.data.description;
+  const description = page.data.description
 
   return createMetadata({
     title: page.data.title,
@@ -56,5 +56,5 @@ export async function generateMetadata(props: {
     alternates: {
       canonical: page.url,
     },
-  });
+  })
 }

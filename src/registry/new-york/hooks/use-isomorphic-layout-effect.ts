@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react"
 
 /**
  * A custom hook that provides a cross-platform compatible `useLayoutEffect`.
@@ -9,4 +9,4 @@ import { useEffect, useLayoutEffect } from "react";
  */
 
 export const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+  typeof window !== "undefined" ? useLayoutEffect : useEffect

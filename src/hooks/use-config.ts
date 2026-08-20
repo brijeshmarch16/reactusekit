@@ -1,6 +1,6 @@
-import { useLocalStorage } from "@/registry/new-york/hooks/use-local-storage";
+import { useLocalStorage } from "@/registry/new-york/hooks/use-local-storage"
 
-type InstallationType = "cli" | "manual";
+type InstallationType = "cli" | "manual"
 
 export function useConfig() {
   const [installationType, setInstallationType] =
@@ -9,7 +9,7 @@ export function useConfig() {
         read: (value: string) => (value === "manual" ? "manual" : "cli"),
         write: (value: InstallationType) => value,
       },
-    });
+    })
 
-  return [installationType, setInstallationType] as const;
+  return [installationType, setInstallationType] as const
 }

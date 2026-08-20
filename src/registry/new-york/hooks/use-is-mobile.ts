@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react"
 
 /**
  * A custom hook that detects if the current viewport is mobile-sized.
@@ -6,20 +6,22 @@ import { useEffect, useState } from "react";
  * @returns {boolean} - Returns true if the viewport is mobile-sized, false otherwise.
  */
 
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_BREAKPOINT = 768
+
+function subscribe(onChange: () => void) {
+  const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+  mql.addEventListener("change", onChange)
+  return () => mql.removeEventListener("change", onChange)
+}
+
+function getSnapshot() {
+  return window.innerWidth < MOBILE_BREAKPOINT
+}
+
+function getServerSnapshot() {
+  return false
+}
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
-
-  useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    };
-    mql.addEventListener("change", onChange);
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-    return () => mql.removeEventListener("change", onChange);
-  }, []);
-
-  return !!isMobile;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }

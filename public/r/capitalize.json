@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "src/registry/new-york/lib/capitalize.ts",
-      "content": "/**\n * Capitalize the first letter of a string.\n * @param str - The string to capitalize.\n * @returns The string with the first letter capitalized.\n */\n\nexport function capitalize(str: string): string {\n  return str.charAt(0).toUpperCase() + str.slice(1);\n}\n",
+      "content": "/**\n * Capitalize the first letter of a string.\n * @param str - The string to capitalize.\n * @returns The string with the first letter capitalized.\n */\n\nexport function capitalize(str: string): string {\n  return str.charAt(0).toUpperCase() + str.slice(1)\n}\n",
       "type": "registry:lib"
     }
   ],

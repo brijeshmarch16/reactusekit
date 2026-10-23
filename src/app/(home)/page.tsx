@@ -8,14 +8,18 @@ export const dynamic = "force-dynamic"
 const getGithubData = async () => {
   try {
     const response = await fetch(
-      "https://api.github.com/repos/brijeshkumaryadav16/reactusekit"
+      "https://api.github.com/repos/brijeshkumaryadav16/reactusekit",
+      { next: { revalidate: 3600 } }
     )
-    const data = await response.json()
+
+    if (!response.ok) return null
+
+    const data: { stargazers_count?: unknown } = await response.json()
     const star = data.stargazers_count
-    return star
-  } catch (error) {
-    console.error("Error fetching GitHub data:", error)
-    return 0
+
+    return typeof star === "number" && Number.isFinite(star) ? star : null
+  } catch {
+    return null
   }
 }
 
@@ -55,9 +59,11 @@ export default async function HomePage() {
               className="inline-flex items-center gap-1 rounded-full border px-6 py-3 text-sm font-semibold"
             >
               <Icons.gitHub className="h-4 w-4" /> Star on GitHub
-              <span>
-                🌟 <NumberTicker value={star} className="font-display" />
-              </span>
+              {star !== null && (
+                <span>
+                  🌟 <NumberTicker value={star} className="font-display" />
+                </span>
+              )}
             </Link>
           </div>
         </div>

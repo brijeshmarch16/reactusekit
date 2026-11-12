@@ -2,6 +2,10 @@
   "name": "react-usekit",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": "26.13.1"
+  },
   "scripts": {
     "build": "next build",
     "dev": "next dev --turbo",
@@ -17,31 +21,31 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
-    "fumadocs-core": "^16.17.9",
-    "fumadocs-mdx": "^15.4.10",
-    "fumadocs-ui": "^16.17.9",
-    "lucide-react": "^1.65.0",
-    "motion": "^14.8.0",
-    "next": "^16.4.3",
+    "fumadocs-core": "^16.18.4",
+    "fumadocs-mdx": "^15.5.3",
+    "fumadocs-ui": "^16.18.4",
+    "lucide-react": "^1.72.0",
+    "motion": "^14.12.0",
+    "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "shiki": "^4.5.0",
+    "shiki": "^4.6.0",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.5",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.4.3",
+    "eslint-config-next": "^16.4.6",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "shadcn": "^4.23.0",
-    "tailwindcss": "^4.3.3",
+    "tailwindcss": "^4.3.5",
     "typescript": "npm:@typescript/typescript6@^6.0.2"
   }
 }
